@@ -76,6 +76,3 @@ Para melhorar a API, aqui estão algumas sugestões de melhorias:
     - Implementar testes de integração para verificar se os componentes da aplicação funcionam bem juntos.
 
 Devido à escolha de exercitaDevido à escolha de exercitar uma arquitetura mais complexa inicialmente, os testes foram deixados para um segundo momento. No entanto, a inclusão de testes de unidade e integração pode trazer benefícios significativos em termos de qualidade e confiabilidade do software. Essas melhorias garantirão que a API seja mais robusta, confiável e escalável no futuro.
-
-
-r uma arquitetura mais complexa inicialmente, os testes foram deixados para um segundo momento. No entanto, a inclusão de testes de unidade e integração pode trazer benefícios significativos em termos de qualidade e confiabilidade do software. Essas melhorias garantirão que a API seja mais robusta, confiável e escalável no futuro.
