@@ -1,0 +1,72 @@
+basePath: /
+definitions:
+  model.AddressResponse:
+    properties:
+      city:
+        type: string
+      neighborhood:
+        type: string
+      state:
+        type: string
+      street:
+        type: string
+      zip_code:
+        type: string
+    type: object
+  model.CustomError:
+    properties:
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: meu-nome@example.com
+    name: Meu Nome
+    url: http://www.meu-nome.com.br
+  description: App receive PostCode and return address data from API BRASILAPI and
+    VIACEP more faster.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Challenge Multithreading
+  version: "1.0"
+paths:
+  /{cep}:
+    get:
+      consumes:
+      - application/json
+      description: Get Address information by CEP
+      parameters:
+      - description: CEP to be queried. Must be composed of 8 numeric digits.
+        format: CEP
+        in: path
+        name: cep
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Address information
+          schema:
+            $ref: '#/definitions/model.AddressResponse'
+        "400":
+          description: Validation CEP error
+          schema:
+            $ref: '#/definitions/model.CustomError'
+        "404":
+          description: CEP not found
+          schema:
+            $ref: '#/definitions/model.CustomError'
+        "504":
+          description: Timeout error
+          schema:
+            $ref: '#/definitions/model.CustomError'
+      summary: Get Address by CEP
+      tags:
+      - CEP
+swagger: "2.0"

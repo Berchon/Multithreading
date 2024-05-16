@@ -1,0 +1,106 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "App receive PostCode and return address data from API BRASILAPI and VIACEP more faster.",
+        "title": "Challenge Multithreading",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Meu Nome",
+            "url": "http://www.meu-nome.com.br",
+            "email": "meu-nome@example.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/{cep}": {
+            "get": {
+                "description": "Get Address information by CEP",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CEP"
+                ],
+                "summary": "Get Address by CEP",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "format": "CEP",
+                        "description": "CEP to be queried. Must be composed of 8 numeric digits.",
+                        "name": "cep",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Address information",
+                        "schema": {
+                            "$ref": "#/definitions/model.AddressResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Validation CEP error",
+                        "schema": {
+                            "$ref": "#/definitions/model.CustomError"
+                        }
+                    },
+                    "404": {
+                        "description": "CEP not found",
+                        "schema": {
+                            "$ref": "#/definitions/model.CustomError"
+                        }
+                    },
+                    "504": {
+                        "description": "Timeout error",
+                        "schema": {
+                            "$ref": "#/definitions/model.CustomError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.AddressResponse": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string"
+                },
+                "neighborhood": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "street": {
+                    "type": "string"
+                },
+                "zip_code": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.CustomError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
