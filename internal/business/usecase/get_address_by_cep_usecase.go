@@ -54,27 +54,26 @@ func (getAddressByCepUsecase *getAddressByCepUsecase) GetAddressByCep(cep model.
 			log.Printf("Cep not found: %v", err)
 			return nil, model.NewCustomError(http.StatusNotFound, fmt.Sprintf("error unmarshaling json: %v: CEP Not Found", err))
 		}
-		log.Printf("ViaCep: ")
-		addressResponse = buildAddressFromViaCep(viaCep)
+		addressResponse = buildAddressFromViaCep(viaCep, "ViaCep")
 	case address = <-ch2:
 		var brasilAPI model.BrasilAPI
 		if err := json.Unmarshal(address, &brasilAPI); err != nil {
 			log.Printf("Cep not found: %v", err)
 			return nil, model.NewCustomError(http.StatusNotFound, fmt.Sprintf("error unmarshaling json: %v: CEP Not Found", err))
 		}
-		log.Printf("BrasilAPI: ")
-		addressResponse = buildAddressFromBrasilAPI(brasilAPI)
+		addressResponse = buildAddressFromBrasilAPI(brasilAPI, "BrasilAPI")
 	case <-time.After(1 * time.Second):
 		log.Printf("Timeout to wait for the response from the APIs")
 		return nil, model.NewCustomError(http.StatusGatewayTimeout, "Timeout to wait for the response from the APIs")
 	}
 
-	log.Printf("%s-%s %s %s/%s\n", addressResponse.Street, addressResponse.Neighborhood, addressResponse.ZipCode, addressResponse.City, addressResponse.State)
+	log.Printf("%s => %s-%s CEP: %s %s/%s\n", addressResponse.ApiName, addressResponse.Street, addressResponse.Neighborhood, addressResponse.ZipCode, addressResponse.City, addressResponse.State)
 	return addressResponse, nil
 }
 
-func buildAddressFromViaCep(address model.ViaCEP) *model.AddressResponse {
+func buildAddressFromViaCep(address model.ViaCEP, apiName string) *model.AddressResponse {
 	return &model.AddressResponse{
+		ApiName:      apiName,
 		ZipCode:      address.ZipCode,
 		Street:       address.Street,
 		Neighborhood: address.Neighborhood,
@@ -83,8 +82,9 @@ func buildAddressFromViaCep(address model.ViaCEP) *model.AddressResponse {
 	}
 }
 
-func buildAddressFromBrasilAPI(address model.BrasilAPI) *model.AddressResponse {
+func buildAddressFromBrasilAPI(address model.BrasilAPI, apiName string) *model.AddressResponse {
 	return &model.AddressResponse{
+		ApiName:      apiName,
 		ZipCode:      address.ZipCode,
 		Street:       address.Street,
 		Neighborhood: address.Neighborhood,

@@ -1,9 +1,9 @@
-GET http://localhost:8080/90650002 HTTP/1.1
+GET http://localhost:8080/01310930 HTTP/1.1
 
 ###
 
-GET https://brasilapi.com.br/api/cep/v1/90650008
+GET https://brasilapi.com.br/api/cep/v1/01310930
 
 ###
 
-GET http://viacep.com.br/ws/90650008/json/
+GET http://viacep.com.br/ws/01310930/json/
