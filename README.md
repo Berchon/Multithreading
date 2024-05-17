@@ -20,7 +20,7 @@ As duas requisições serão feitas simultaneamente para as seguintes APIs:
 ## Como usar:
 Para utilizar essa API, siga os seguintes passos:
 
-### Instalação
+### Instalação:
 - Verifique se Go está instalado em seu sistema:
 ```BASH
 go version
@@ -37,7 +37,7 @@ git clone https://exemplo.com/seu-repositorio.git
 go mod tidy
 ```
 
-### Utilização**
+### Utilização:
 - A API está rodando na porta 8080 e o endpoint para obter informações de endereço com base em um CEP é:
 ```BASH
 http://localhost:8080/{cep}
@@ -46,6 +46,17 @@ http://localhost:8080/{cep}
 - Para fazer uma requisição ao endpoint utilizando cURL, você pode executar o seguinte comando:
 ```BASH
 curl http://localhost:8080/01310930
+```
+- Essa requisição acima tem o seguinte retorno:
+```JSON
+{
+  "api_name": "BrasilAPI",
+  "zip_code": "01310930",
+  "street": "Avenida Paulista 2100",
+  "neighborhood": "Bela Vista",
+  "city": "São Paulo",
+  "state": "SP"
+}
 ```
 
 ## Documentação:
@@ -62,7 +73,7 @@ http://localhost:8080/swagger/index.html
 
 A documentação do Swagger é uma ferramenta útil para facilitar o desenvolvimento, teste e integração de APIs.
 
-## Pontos de melhorias
+## Pontos de melhorias:
 Para melhorar a API, aqui estão algumas sugestões de melhorias:
 
 1. Melhoria nos Responses de Erros:
